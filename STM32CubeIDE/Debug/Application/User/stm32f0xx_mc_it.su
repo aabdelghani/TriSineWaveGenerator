@@ -1,0 +1,7 @@
+C:/Users/Ahmed/stMotorProjects/TriSineWaveGenerator/Src/stm32f0xx_mc_it.c:73:6:DMA1_Channel1_IRQHandler	8	static
+C:/Users/Ahmed/stMotorProjects/TriSineWaveGenerator/Src/stm32f0xx_mc_it.c:96:6:TIM1_BRK_UP_TRG_COM_IRQHandler	8	static
+C:/Users/Ahmed/stMotorProjects/TriSineWaveGenerator/Src/stm32f0xx_mc_it.c:133:6:DMA1_Channel4_5_IRQHandler	0	static
+C:/Users/Ahmed/stMotorProjects/TriSineWaveGenerator/Src/stm32f0xx_mc_it.c:157:6:USART1_IRQHandler	16	static
+C:/Users/Ahmed/stMotorProjects/TriSineWaveGenerator/Src/stm32f0xx_mc_it.c:207:6:HardFault_Handler	24	static
+C:/Users/Ahmed/stMotorProjects/TriSineWaveGenerator/Src/stm32f0xx_mc_it.c:255:6:SysTick_Handler	8	static
+C:/Users/Ahmed/stMotorProjects/TriSineWaveGenerator/Src/stm32f0xx_mc_it.c:282:6:EXTI0_1_IRQHandler	8	static
