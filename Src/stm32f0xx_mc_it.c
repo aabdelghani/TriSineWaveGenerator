@@ -77,7 +77,7 @@ void CURRENT_REGULATION_IRQHandler(void)
   /* USER CODE END CURRENT_REGULATION_IRQn 0 */
 
   /* Clear Flags */
-  DMA1->IFCR = (LL_DMA_ISR_GIF1|LL_DMA_ISR_TCIF1|LL_DMA_ISR_HTIF1);
+  DMA1->IFCR = (LL_DMA_ISR_GIF2|LL_DMA_ISR_TCIF2|LL_DMA_ISR_HTIF2);
   /* USER CODE BEGIN CURRENT_REGULATION_IRQn 1 */
 
   /* USER CODE END CURRENT_REGULATION_IRQn 1 */
@@ -102,7 +102,7 @@ void TIMx_UP_BRK_M1_IRQHandler(void)
   if(LL_TIM_IsActiveFlag_UPDATE(PWM_Handle_M1.pParams_str->TIMx) && LL_TIM_IsEnabledIT_UPDATE(PWM_Handle_M1.pParams_str->TIMx))
   {
     LL_TIM_ClearFlag_UPDATE(PWM_Handle_M1.pParams_str->TIMx);
-    R3_1_TIMx_UP_IRQHandler( &PWM_Handle_M1 );
+    R1F0XX_TIMx_UP_IRQHandler(&PWM_Handle_M1);
     /* USER CODE BEGIN PWM_Update */
 
     /* USER CODE END PWM_Update */
@@ -139,6 +139,7 @@ void DMAx_R1_M1_IRQHandler(void)
   if (LL_DMA_IsActiveFlag_TC4(DMA1))
   {
     LL_DMA_ClearFlag_TC4(DMA1);
+    R1F0XX_DMA_TC_IRQHandler(&PWM_Handle_M1);
     /* USER CODE BEGIN DMAx_R1_M1_TC4 */
 
     /* USER CODE END DMAx_R1_M1_TC4 */

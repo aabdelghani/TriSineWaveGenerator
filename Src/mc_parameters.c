@@ -23,7 +23,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "parameters_conversion.h"
-#include "r3_f0xx_pwm_curr_fdbk.h"
+#include "r1_f0xx_pwm_curr_fdbk.h"
 
 /* USER CODE BEGIN Additional include */
 
@@ -31,59 +31,32 @@
 
 #define FREQ_RATIO 1                /* Dummy value for single drive */
 #define FREQ_RELATION HIGHEST_FREQ  /* Dummy value for single drive */
-extern  PWMC_R3_1_Handle_t PWM_Handle_M1;
 
 /**
-  * @brief  Current sensor parameters Single Drive - three shunt, STM32F0X
+  * @brief  Current sensor parameters Single Drive - one shunt
   */
-const R3_1_Params_t R3_1_Params =
+const R1_F0XX_Params_t R1_F0XX_Params =
 {
 /* Current reading A/D Conversions initialization -----------------------------*/
-  .b_ISamplingTime =  LL_ADC_SAMPLINGTIME_7CYCLES_5,
+  .ISamplingTime = LL_ADC_SAMPLINGTIME_7CYCLES_5,
+  .IChannel = MC_ADC_CHANNEL_9,
 
 /* PWM generation parameters --------------------------------------------------*/
-  .hDeadTime = DEAD_TIME_COUNTS,
+  .DeadTime = DEAD_TIME_COUNTS,
   .RepetitionCounter = REP_COUNTER,
-  .hTafter = TW_AFTER,
-  .hTbefore = TW_BEFORE_R3_1,
-  .TIMx = TIM1,
+  .Tafter = TAFTER,
+  .Tbefore = TBEFORE,
+  .TMin = TMIN,
+  .HTMin = HTMIN,
+  .TSample = SAMPLING_TIME,
+  .MaxTrTs = MAX_TRTS,
 
 /* PWM Driving signals initialization ----------------------------------------*/
-  .LowSideOutputs= (LowSideOutputsFunction_t)LOW_SIDE_SIGNALS_ENABLING,
+  .TIMx = TIM1,
+  .AuxTIM = R1_PWM_AUX_TIM,
 
-  .ADCConfig = {
-                 1<< MC_ADC_CHANNEL_4| 1<<MC_ADC_CHANNEL_3,
-                 1<< MC_ADC_CHANNEL_5| 1<<MC_ADC_CHANNEL_3,
-                 1<< MC_ADC_CHANNEL_5| 1<<MC_ADC_CHANNEL_3,
-                 1<< MC_ADC_CHANNEL_5| 1<<MC_ADC_CHANNEL_4,
-                 1<< MC_ADC_CHANNEL_5| 1<<MC_ADC_CHANNEL_4,
-                 1<< MC_ADC_CHANNEL_4| 1<<MC_ADC_CHANNEL_3,
-  },
-  .ADCScandir = {
-   LL_ADC_REG_SEQ_SCAN_DIR_BACKWARD>>ADC_CFGR1_SCANDIR_Pos,
-   LL_ADC_REG_SEQ_SCAN_DIR_BACKWARD>>ADC_CFGR1_SCANDIR_Pos,
-   LL_ADC_REG_SEQ_SCAN_DIR_FORWARD>>ADC_CFGR1_SCANDIR_Pos,
-   LL_ADC_REG_SEQ_SCAN_DIR_FORWARD>>ADC_CFGR1_SCANDIR_Pos,
-   LL_ADC_REG_SEQ_SCAN_DIR_BACKWARD>>ADC_CFGR1_SCANDIR_Pos,
-   LL_ADC_REG_SEQ_SCAN_DIR_FORWARD>>ADC_CFGR1_SCANDIR_Pos,
-  },
-  .ADCDataReg1 = {
-               &PWM_Handle_M1.ADC1_DMA_converted[0],
-               &PWM_Handle_M1.ADC1_DMA_converted[0],
-               &PWM_Handle_M1.ADC1_DMA_converted[1],
-               &PWM_Handle_M1.ADC1_DMA_converted[1],
-               &PWM_Handle_M1.ADC1_DMA_converted[0],
-               &PWM_Handle_M1.ADC1_DMA_converted[1],
-  },
+  .LowSideOutputs = (LowSideOutputsFunction_t)LOW_SIDE_SIGNALS_ENABLING,
 
-  .ADCDataReg2 = {
-               &PWM_Handle_M1.ADC1_DMA_converted[1],
-               &PWM_Handle_M1.ADC1_DMA_converted[1],
-               &PWM_Handle_M1.ADC1_DMA_converted[0],
-               &PWM_Handle_M1.ADC1_DMA_converted[0],
-               &PWM_Handle_M1.ADC1_DMA_converted[1],
-               &PWM_Handle_M1.ADC1_DMA_converted[0],
-  },
 };
 
 /* USER CODE BEGIN Additional parameters */

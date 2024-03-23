@@ -27,7 +27,6 @@
 #include "virtual_speed_sensor.h"
 #include "ntc_temperature_sensor.h"
 #include "pwm_curr_fdbk.h"
-#include "r_divider_bus_voltage_sensor.h"
 #include "virtual_bus_voltage_sensor.h"
 #include "pqd_motor_power_measurement.h"
  #include "user_interface.h"
@@ -35,7 +34,7 @@
 #include "motor_control_protocol.h"
 #include "usart_frame_communication_protocol.h"
 
-#include "r3_f0xx_pwm_curr_fdbk.h"
+#include "r1_f0xx_pwm_curr_fdbk.h"
 
 extern RevUpCtrl_Handle_t RevUpControlM1;
 #include "ramp_ext_mngr.h"
@@ -50,15 +49,14 @@ extern PID_Handle_t PIDSpeedHandle_M1;
 extern PID_Handle_t PIDIqHandle_M1;
 extern PID_Handle_t PIDIdHandle_M1;
 extern NTC_Handle_t TempSensorParamsM1;
-extern PWMC_R3_1_Handle_t PWM_Handle_M1;
-extern PWMC_R3_1_Handle_t PWM_Handle_M1;
+extern PWMC_R1_F0_Handle_t PWM_Handle_M1;
 extern SpeednTorqCtrl_Handle_t SpeednTorqCtrlM1;
 extern PQD_MotorPowMeas_Handle_t PQD_MotorPowMeasM1;
 extern PQD_MotorPowMeas_Handle_t *pPQD_MotorPowMeasM1;
 extern VirtualSpeedSensor_Handle_t VirtualSpeedSensorM1;
 extern STO_Handle_t STO_M1;
 extern STO_PLL_Handle_t STO_PLL_M1;
-extern RDivider_Handle_t RealBusVoltageSensorParamsM1;
+extern VirtualBusVoltageSensor_Handle_t VirtualBusVoltageSensorParamsM1;
 extern CircleLimitation_Handle_t CircleLimitationM1;
 extern RampExtMngr_Handle_t RampExtMngrHFParamsM1;
 extern UI_Handle_t UI_Params;

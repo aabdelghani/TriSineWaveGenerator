@@ -59,7 +59,7 @@
 /* #define  MC.SMOOTH_BRAKING_ACTION_ON_OVERVOLTAGE */
 
 /* USER CODE END Private define */
-#define VBUS_TEMP_ERR_MASK ~(0 | 0 | MC_OVER_TEMP)
+#define VBUS_TEMP_ERR_MASK ~(MC_OVER_VOLT | MC_UNDER_VOLT | MC_OVER_TEMP)
 
 /* Private variables----------------------------------------------------------*/
 FOCVars_t FOCVars[NBR_OF_MOTORS];
@@ -71,7 +71,7 @@ SpeednTorqCtrl_Handle_t *pSTC[NBR_OF_MOTORS];
 PID_Handle_t *pPIDSpeed[NBR_OF_MOTORS];
 PID_Handle_t *pPIDIq[NBR_OF_MOTORS];
 PID_Handle_t *pPIDId[NBR_OF_MOTORS];
-RDivider_Handle_t *pBusSensorM1;
+VirtualBusVoltageSensor_Handle_t *pBusSensorM1;
 
 NTC_Handle_t *pTemperatureSensor[NBR_OF_MOTORS];
 PWMC_Handle_t * pwmcHandle[NBR_OF_MOTORS];
@@ -137,7 +137,7 @@ __weak void MCboot( MCI_Handle_t* pMCIList[NBR_OF_MOTORS],MCT_Handle_t* pMCTList
   /*    PWM and current sensing component initialization    */
   /**********************************************************/
   pwmcHandle[M1] = &PWM_Handle_M1._Super;
-  R3_1_Init(&PWM_Handle_M1);
+  R1F0XX_Init(&PWM_Handle_M1);
   /* USER CODE BEGIN MCboot 1 */
 
   /* USER CODE END MCboot 1 */
@@ -177,11 +177,11 @@ __weak void MCboot( MCI_Handle_t* pMCIList[NBR_OF_MOTORS],MCT_Handle_t* pMCTList
   pPIDIq[M1] = &PIDIqHandle_M1;
   pPIDId[M1] = &PIDIdHandle_M1;
 
-  /********************************************************/
-  /*   Bus voltage sensor component initialization        */
-  /********************************************************/
-  pBusSensorM1 = &RealBusVoltageSensorParamsM1;
-  RVBS_Init(pBusSensorM1);
+  /**********************************************************/
+  /*   Virtual bus voltage sensor component initialization  */
+  /**********************************************************/
+  pBusSensorM1 = &VirtualBusVoltageSensorParamsM1;
+  VVBS_Init(pBusSensorM1);
 
   /*************************************************/
   /*   Power measurement component initialization  */
@@ -337,7 +337,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
   {
   case IDLE_START:
     RUC_Clear( &RevUpControlM1, MCI_GetImposedMotorDirection( oMCInterface[M1] ) );
-    R3_1_TurnOnLowSides( pwmcHandle[M1] );
+    R1F0XX_TurnOnLowSides( pwmcHandle[M1] );
     TSK_SetChargeBootCapDelayM1( CHARGE_BOOT_CAP_TICKS );
     STM_NextState( &STM[M1], CHARGE_BOOT_CAP );
     break;
@@ -372,7 +372,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
     {
       FOC_Clear( M1 );
 
-      R3_1_SwitchOnPWM( pwmcHandle[M1] );
+      R1F0XX_SwitchOnPWM( pwmcHandle[M1] );
     }
     break;
 
@@ -496,7 +496,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
     break;
 
   case ANY_STOP:
-    R3_1_SwitchOffPWM( pwmcHandle[M1] );
+    R1F0XX_SwitchOffPWM( pwmcHandle[M1] );
     FOC_Clear( M1 );
     MPM_Clear( (MotorPowMeas_Handle_t*) pMPM[M1] );
     TSK_SetStopPermanencyTimeM1( STOPPERMANENCY_TICKS );
@@ -832,10 +832,6 @@ __weak void TSK_SafetyTask_PWMOFF(uint8_t bMotor)
   CodeReturn |= errMask[bMotor] & NTC_CalcAvTemp(pTemperatureSensor[bMotor]); /* check for fault if FW protection is activated. It returns MC_OVER_TEMP or MC_NO_ERROR */
   CodeReturn |= PWMC_CheckOverCurrent(pwmcHandle[bMotor]);                    /* check for fault. It return MC_BREAK_IN or MC_NO_FAULTS
                                                                                  (for STM32F30x can return MC_OVER_VOLT in case of HW Overvoltage) */
-  if(bMotor == M1)
-  {
-    CodeReturn |=  errMask[bMotor] &RVBS_CalcAvVbus(pBusSensorM1);
-  }
 
   STM_FaultProcessing(&STM[bMotor], CodeReturn, ~CodeReturn); /* Update the STM according error code */
   switch (STM_GetState(&STM[bMotor])) /* Acts on PWM outputs in case of faults */
@@ -912,7 +908,7 @@ __weak void TSK_HardwareFaultTask(void)
 
   /* USER CODE END TSK_HardwareFaultTask 0 */
 
-  R3_1_SwitchOffPWM(pwmcHandle[M1]);
+  R1F0XX_SwitchOffPWM(pwmcHandle[M1]);
   STM_FaultProcessing(&STM[M1], MC_SW_ERROR, 0);
   /* USER CODE BEGIN TSK_HardwareFaultTask 1 */
 
@@ -923,10 +919,7 @@ __weak void TSK_HardwareFaultTask(void)
   */
 __weak void mc_lock_pins (void)
 {
-LL_GPIO_LockPin(M1_CURR_AMPL_W_GPIO_Port, M1_CURR_AMPL_W_Pin);
-LL_GPIO_LockPin(M1_CURR_AMPL_U_GPIO_Port, M1_CURR_AMPL_U_Pin);
-LL_GPIO_LockPin(M1_CURR_AMPL_V_GPIO_Port, M1_CURR_AMPL_V_Pin);
-LL_GPIO_LockPin(M1_BUS_VOLTAGE_GPIO_Port, M1_BUS_VOLTAGE_Pin);
+LL_GPIO_LockPin(M1_CURR_AMPL_GPIO_Port, M1_CURR_AMPL_Pin);
 LL_GPIO_LockPin(M1_PWM_UH_GPIO_Port, M1_PWM_UH_Pin);
 LL_GPIO_LockPin(M1_PWM_VH_GPIO_Port, M1_PWM_VH_Pin);
 LL_GPIO_LockPin(M1_OCP_GPIO_Port, M1_OCP_Pin);

@@ -138,16 +138,16 @@ RevUpCtrl_Handle_t RevUpControlM1 =
                              {(uint16_t)PHASE5_DURATION,(int16_t)(PHASE5_FINAL_SPEED_UNIT),(int16_t)PHASE5_FINAL_CURRENT,(void*)MC_NULL},
                             },
 };
-PWMC_R3_1_Handle_t PWM_Handle_M1 =
+PWMC_R1_F0_Handle_t PWM_Handle_M1 =
 {
   {
-    .pFctGetPhaseCurrents              = &R3_1_GetPhaseCurrents,
-    .pFctSwitchOffPwm                  = &R3_1_SwitchOffPWM,
-    .pFctSwitchOnPwm                   = &R3_1_SwitchOnPWM,
-    .pFctCurrReadingCalib              = &R3_1_CurrentReadingCalibration,
-    .pFctTurnOnLowSides                = &R3_1_TurnOnLowSides,
-    .pFctSetADCSampPointSectX          = &R3_1_SetADCSampPointSectX,
-    .pFctIsOverCurrentOccurred         = &R3_1_IsOverCurrentOccurred,
+    .pFctGetPhaseCurrents              = &R1F0XX_GetPhaseCurrents,
+    .pFctSwitchOffPwm                  = &R1F0XX_SwitchOffPWM,
+    .pFctSwitchOnPwm                   = &R1F0XX_SwitchOnPWM,
+    .pFctCurrReadingCalib              = &R1F0XX_CurrentReadingCalibration,
+    .pFctTurnOnLowSides                = &R1F0XX_TurnOnLowSides,
+    .pFctSetADCSampPointSectX          = &R1F0XX_CalcDutyCycles,
+    .pFctIsOverCurrentOccurred         = &R1F0XX_IsOverCurrentOccurred,
     .pFctOCPSetReferenceVoltage        = MC_NULL,
     .pFctRLDetectionModeEnable         = MC_NULL,
     .pFctRLDetectionModeDisable        = MC_NULL,
@@ -172,16 +172,26 @@ PWMC_R3_1_Handle_t PWM_Handle_M1 =
     .Ton                 = TON,
     .Toff                = TOFF
   },
-  .PhaseAOffset = 0,
-  .PhaseBOffset = 0,
-  .PhaseCOffset = 0,
   .Half_PWMPeriod = PWM_PERIOD_CYCLES/2u,
+  .PhaseOffset = 0,
+  .DmaBuff = {0,0},
+  .CCDmaBuffCh4 = {0,0,0,0},
+  .CntSmp1 = 0,
+  .CntSmp2 = 0,
+  .sampCur1 = 0,
+  .sampCur2 = 0,
+  .CurrAOld = 0,
+  .CurrBOld = 0,
+  .CurrCOld = 0,
+  .Inverted_pwm = 0,
+  .Inverted_pwm_new = 0,
+  .DMATot = 0,
+  .DMACur = 0,
+  .Flags = 0,
+  .CurConv = {0,0},
+  .ADC_ExtTrigConv = 0,
   .OverCurrentFlag = false,
-  .OverVoltageFlag = false,
-  .BrakeActionLock = false,
-  .PolarizationCounter = 0,
-  .ADC1_DMA_converted = {0,0},
-  .pParams_str = &R3_1_Params
+  .pParams_str = &R1_F0XX_Params,
 };
 
 /**
@@ -278,30 +288,17 @@ NTC_Handle_t TempSensorParamsM1 =
   .hExpectedTemp_C = M1_VIRTUAL_HEAT_SINK_TEMPERATURE_VALUE,
 };
 
-/* Bus voltage sensor value filter buffer */
-uint16_t RealBusVoltageSensorFilterBufferM1[M1_VBUS_SW_FILTER_BW_FACTOR];
-
 /**
-  * Bus voltage sensor parameters Motor 1
+  * Virtual bus voltage sensor parameters Motor 1
   */
-RDivider_Handle_t RealBusVoltageSensorParamsM1 =
+VirtualBusVoltageSensor_Handle_t VirtualBusVoltageSensorParamsM1 =
 {
-  ._Super                =
+  ._Super =
   {
-    .SensorType          = REAL_SENSOR,
-    .ConversionFactor    = (uint16_t)(ADC_REFERENCE_VOLTAGE / VBUS_PARTITIONING_FACTOR),
+    .SensorType       = VIRTUAL_SENSOR,
+    .ConversionFactor = 500,
   },
-
-  .VbusRegConv =
-  {
-    .regADC = ADC1,
-    .channel = MC_ADC_CHANNEL_9,
-    .samplingTime = M1_VBUS_SAMPLING_TIME,
-  },
-  .LowPassFilterBW       =  M1_VBUS_SW_FILTER_BW_FACTOR,
-  .OverVoltageThreshold  = OVERVOLTAGE_THRESHOLD_d,
-  .UnderVoltageThreshold =  UNDERVOLTAGE_THRESHOLD_d,
-  .aBuffer = RealBusVoltageSensorFilterBufferM1,
+  .ExpectedVbus_d = 1 + (NOMINAL_BUS_VOLTAGE_V * 65536) / 500,
 };
 
 UI_Handle_t UI_Params =

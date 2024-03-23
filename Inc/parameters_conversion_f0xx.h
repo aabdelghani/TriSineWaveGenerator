@@ -32,7 +32,7 @@
 #define ADC1_2  ADC1
 
 /*************************  IRQ Handler Mapping  *********************/
- #define CURRENT_REGULATION_IRQHandler          DMA1_Channel1_IRQHandler
+ #define CURRENT_REGULATION_IRQHandler          DMA1_Channel2_3_IRQHandler
 #define TIMx_UP_BRK_M1_IRQHandler               TIM1_BRK_UP_TRG_COM_IRQHandler
 #define DMAx_R1_M1_IRQHandler                   DMA1_Channel4_5_IRQHandler
 

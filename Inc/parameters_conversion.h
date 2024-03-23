@@ -61,8 +61,7 @@
 /************************* COMMON OBSERVER PARAMETERS **************************/
 #define MAX_BEMF_VOLTAGE  (uint16_t)((MAX_APPLICATION_SPEED_RPM * 1.2 *\
                            MOTOR_VOLTAGE_CONSTANT*SQRT_2)/(1000u*SQRT_3))
-/*max phase voltage, 0-peak Volts*/
-#define MAX_VOLTAGE (int16_t)((ADC_REFERENCE_VOLTAGE/SQRT_3)/VBUS_PARTITIONING_FACTOR)
+#define MAX_VOLTAGE (int16_t)(500/2) /* Virtual sensor conversion factor */
 
 #define MAX_CURRENT (ADC_REFERENCE_VOLTAGE/(2*RSHUNT*AMPLIFICATION_GAIN))
 #define OBS_MINIMUM_SPEED_UNIT    (uint16_t) ((OBS_MINIMUM_SPEED_RPM*SPEED_UNIT)/_RPM)
@@ -128,11 +127,18 @@
 /* MOTOR 1 ADC Timing */
 /**********************/
 #define SAMPLING_TIME ((ADC_SAMPLING_CYCLES * ADV_TIM_CLK_MHz) / ADC_CLK_MHz) /* In ADV_TIMER CLK cycles*/
-#define HTMIN 1 /* Required for main.c compilation only, CCR4 is overwritten at runtime */
-#define TW_BEFORE ((uint16_t)((ADC_TRIG_CONV_LATENCY_CYCLES + ADC_SAMPLING_CYCLES) * ADV_TIM_CLK_MHz) / ADC_CLK_MHz  + 1u)
-#define TW_BEFORE_R3_1 ((uint16_t)((ADC_TRIG_CONV_LATENCY_CYCLES + ADC_SAMPLING_CYCLES*2 + ADC_SAR_CYCLES) * ADV_TIM_CLK_MHz) / ADC_CLK_MHz  + 1u)
-#define TW_AFTER ((uint16_t)(((DEADTIME_NS+MAX_TNTR_NS)*ADV_TIM_CLK_MHz)/1000ul))
-#define MAX_TWAIT ((uint16_t)((TW_AFTER - SAMPLING_TIME)/2))
+#define TRISE ((TRISE_NS * ADV_TIM_CLK_MHz)/1000uL)
+#define TDEAD ((uint16_t)((DEADTIME_NS * ADV_TIM_CLK_MHz)/1000uL))
+#define TAFTER ((uint16_t)(TDEAD + TRISE))
+#define TBEFORE ((uint16_t)((ADC_TRIG_CONV_LATENCY_CYCLES + ADC_SAMPLING_CYCLES) * ADV_TIM_CLK_MHz) / ADC_CLK_MHz  + 1u)
+#define TMIN ((uint16_t)( TAFTER + TBEFORE ))
+#define HTMIN ((uint16_t)(TMIN >> 1))
+#define CHTMIN ((uint16_t)(TMIN/(REGULATION_EXECUTION_RATE*2)))
+#if (TRISE > SAMPLING_TIME)
+#define MAX_TRTS (2 * TRISE)
+#else
+#define MAX_TRTS (2 * SAMPLING_TIME)
+#endif
 
 /* USER CODE BEGIN temperature */
 
