@@ -1,4 +1,4 @@
-# TrisSineWaveGenerator
+# TriSineWaveGenerator
 
 ## Generating Three Phase SineWave using STM32
 
