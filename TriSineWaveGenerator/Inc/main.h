@@ -63,12 +63,8 @@ void Error_Handler(void);
 #define Start_Stop_Pin GPIO_PIN_0
 #define Start_Stop_GPIO_Port GPIOF
 #define Start_Stop_EXTI_IRQn EXTI0_1_IRQn
-#define M1_CURR_AMPL_W_Pin GPIO_PIN_3
-#define M1_CURR_AMPL_W_GPIO_Port GPIOA
-#define M1_CURR_AMPL_V_Pin GPIO_PIN_4
-#define M1_CURR_AMPL_V_GPIO_Port GPIOA
-#define M1_CURR_AMPL_U_Pin GPIO_PIN_5
-#define M1_CURR_AMPL_U_GPIO_Port GPIOA
+#define M1_POTENTIOMETER_Pin GPIO_PIN_6
+#define M1_POTENTIOMETER_GPIO_Port GPIOA
 #define M1_BUS_VOLTAGE_Pin GPIO_PIN_1
 #define M1_BUS_VOLTAGE_GPIO_Port GPIOB
 #define M1_OCP_Pin GPIO_PIN_12

@@ -99,15 +99,13 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     __HAL_RCC_GPIOA_CLK_ENABLE();
     __HAL_RCC_GPIOB_CLK_ENABLE();
     /**ADC GPIO Configuration
-    PA3     ------> ADC_IN3
-    PA4     ------> ADC_IN4
-    PA5     ------> ADC_IN5
+    PA6     ------> ADC_IN6
     PB1     ------> ADC_IN9
     */
-    GPIO_InitStruct.Pin = M1_CURR_AMPL_W_Pin|M1_CURR_AMPL_V_Pin|M1_CURR_AMPL_U_Pin;
+    GPIO_InitStruct.Pin = M1_POTENTIOMETER_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    HAL_GPIO_Init(M1_POTENTIOMETER_GPIO_Port, &GPIO_InitStruct);
 
     GPIO_InitStruct.Pin = M1_BUS_VOLTAGE_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
@@ -155,12 +153,10 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
     __HAL_RCC_ADC1_CLK_DISABLE();
 
     /**ADC GPIO Configuration
-    PA3     ------> ADC_IN3
-    PA4     ------> ADC_IN4
-    PA5     ------> ADC_IN5
+    PA6     ------> ADC_IN6
     PB1     ------> ADC_IN9
     */
-    HAL_GPIO_DeInit(GPIOA, M1_CURR_AMPL_W_Pin|M1_CURR_AMPL_V_Pin|M1_CURR_AMPL_U_Pin);
+    HAL_GPIO_DeInit(M1_POTENTIOMETER_GPIO_Port, M1_POTENTIOMETER_Pin);
 
     HAL_GPIO_DeInit(M1_BUS_VOLTAGE_GPIO_Port, M1_BUS_VOLTAGE_Pin);
 
