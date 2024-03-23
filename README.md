@@ -5,6 +5,9 @@
 ### Introduction
 This project is developed for the STEVAL spin 3201 board and is aimed at generating a 3-phase sine wave output with specific characteristics. The primary goal is to achieve a fundamental frequency of 2 kHz for the output and a switching frequency of 12 kHz. Additionally, the output voltage amplitude is adjustable via the built-in potentiometer, featuring a unique dead-zone implementation for enhanced control.
 
+## MVP Documentation
+For detailed documentation on each Minimum Viable Product (MVP) iteration, including objectives, achievements, and customer feedback, please see our [MVP Documentation](./docs/MVP_DOCUMENTATION.md).
+
 ### Features
 - **Fundamental Frequency:** 2 kHz
 - **Switching Frequency:** 12 kHz
