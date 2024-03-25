@@ -4,10 +4,10 @@
 		<define key="POLE_PAIR_NUM" value="2" />
 		<define key="RS" value="0.35" />
 		<define key="LS" value="0.000600" />
-		<define key="NOMINAL_CURRENT" value="2446" />
+		<define key="NOMINAL_CURRENT" value="2752" />
 		<define key="MOTOR_MAX_SPEED_RPM" value="4000" />
 		<define key="MOTOR_VOLTAGE_CONSTANT" value="4.0" />
-		<define key="ID_DEMAG" value="-2446" />
+		<define key="ID_DEMAG" value="-2752" />
 		<define key="HALL_SENSORS_PLACEMENT" value="DEGREES_120" />
 		<define key="HALL_PHASE_SHIFT" value="300" />
 		<define key="ENCODER_PPR" value="400" />
@@ -15,7 +15,7 @@
 		<define key="ENCODER_AVAILABLE" value="TRUE" />
 		<define key="MOTOR_TYPE" value="PMSM" />
 		<define key="LDLQ_RATIO" value="1.000" />
-		<define key="DC_CURRENT_RS_MEAS" value="1.60" />
+		<define key="DC_CURRENT_RS_MEAS" value="1.80" />
 		<define key="PHASE_UH_POLARITY" value="H_ACTIVE_HIGH" />
 		<define key="PHASE_VH_POLARITY" value="H_ACTIVE_HIGH" />
 		<define key="PHASE_WH_POLARITY" value="H_ACTIVE_HIGH" />
@@ -24,15 +24,15 @@
 		<define key="PHASE_VL_POLARITY" value="L_ACTIVE_HIGH" />
 		<define key="PHASE_WL_POLARITY" value="L_ACTIVE_HIGH" />
 		<define key="HW_DEAD_TIME_NS" value="100" />
-		<define key="INRUSH_CURRLIMIT_ENABLING" value="ENABLE" />
+		<define key="INRUSH_CURRLIMIT_ENABLING" value="DISABLE" />
 		<define key="INRUSH_CURRLIMIT_AT_POWER_ON" value="ACTIVE" />
 		<define key="INRUSH_CURRLIMIT_CHANGE_AFTER_MS" value="1000" />
 		<define key="INRUSH_CURR_LIMITER_POLARITY" value="DOUT_ACTIVE_HIGH" />
 		<define key="DISSIPATIVE_BRAKE_POLARITY" value="DOUT_ACTIVE_HIGH" />
 		<define key="VBUS_PARTITIONING_FACTOR" value="0.0522" />
 		<define key="NOMINAL_BUS_VOLTAGE_V" value="24" />
-		<define key="SINGLE_SHUNT" value="TRUE" />
-		<define key="CURRENT_READING_TOPOLOGY" value="SINGLE_SHUNT" />
+		<define key="THREE_SHUNT" value="TRUE" />
+		<define key="CURRENT_READING_TOPOLOGY" value="THREE_SHUNT" />
 		<define key="RSHUNT" value="0.01000" />
 		<define key="AMPLIFICATION_GAIN" value="7.70" />
 		<define key="TNOISE_NS" value="1200" />
@@ -49,8 +49,8 @@
 		<define key="dV_dT" value="0.025" />
 		<define key="T_MAX" value="70" />
 		<define key="PWBDID" value="10010" />
-		<define key="STATE_OBSERVER_PLL" value="TRUE" />
-		<define key="SPEED_SENSOR_SELECTION" value="STATE_OBSERVER_PLL" />
+		<define key="HALL_SENSORS" value="TRUE" />
+		<define key="SPEED_SENSOR_SELECTION" value="HALL_SENSORS" />
 		<define key="SINGLEDRIVE" value="TRUE" />
 		<define key="DRIVES_NUMBER_SELECTION" value="SINGLEDRIVE" />
 		<define key="MAX_APPLICATION_SPEED" value="4000" />
@@ -61,7 +61,7 @@
 		<define key="ENC_INVERT_SPEED" value="DISABLE" />
 		<define key="ENC_AVERAGING_FIFO_DEPTH" value="16" />
 		<define key="HALL_MEAS_ERRORS_BEFORE_FAULTS" value="3" />
-		<define key="HALL_ICx_FILTER" value="62" />
+		<define key="HALL_ICx_FILTER" value="64" />
 		<define key="HALL_AVERAGING_FIFO_DEPTH" value="6" />
 		<define key="HALL_MTPA" value="FALSE" />
 		<define key="VARIANCE_THRESHOLD" value="0.1" />
@@ -167,22 +167,22 @@
 		<define key="ALIGNMENT_ANGLE_DEG" value="90" />
 		<define key="FINAL_I_ALIGNMENT" value="2981" />
 		<define key="STARTING_ANGLE_DEG" value="90" />
-		<define key="PHASE1_DURATION" value="700" />
-		<define key="PHASE1_FINAL_SPEED_RPM" value="2000" />
-		<define key="PHASE1_FINAL_CURRENT" value="1070" />
+		<define key="PHASE1_DURATION" value="0" />
+		<define key="PHASE1_FINAL_SPEED_RPM" value="0" />
+		<define key="PHASE1_FINAL_CURRENT" value="0" />
 		<define key="PHASE2_DURATION" value="700" />
-		<define key="PHASE2_FINAL_SPEED_RPM" value="2000" />
-		<define key="PHASE2_FINAL_CURRENT" value="1070" />
-		<define key="PHASE3_DURATION" value="700" />
-		<define key="PHASE3_FINAL_SPEED_RPM" value="2000" />
+		<define key="PHASE2_FINAL_SPEED_RPM" value="0" />
+		<define key="PHASE2_FINAL_CURRENT" value="917" />
+		<define key="PHASE3_DURATION" value="350" />
+		<define key="PHASE3_FINAL_SPEED_RPM" value="630" />
 		<define key="PHASE3_FINAL_CURRENT" value="1070" />
-		<define key="PHASE4_DURATION" value="700" />
-		<define key="PHASE4_FINAL_SPEED_RPM" value="2000" />
+		<define key="PHASE4_DURATION" value="1150" />
+		<define key="PHASE4_FINAL_SPEED_RPM" value="2700" />
 		<define key="PHASE4_FINAL_CURRENT" value="1070" />
-		<define key="PHASE5_DURATION" value="700" />
-		<define key="PHASE5_FINAL_SPEED_RPM" value="2000" />
+		<define key="PHASE5_DURATION" value="0" />
+		<define key="PHASE5_FINAL_SPEED_RPM" value="2700" />
 		<define key="PHASE5_FINAL_CURRENT" value="1070" />
-		<define key="ENABLE_SL_ALGO_FROM_PHASE" value="1" />
+		<define key="ENABLE_SL_ALGO_FROM_PHASE" value="3" />
 		<define key="TRANSITION_DURATION" value="25" />
 		<define key="OBS_MINIMUM_SPEED_RPM" value="580" />
 		<define key="NB_CONSECUTIVE_TESTS" value="2" />
@@ -200,7 +200,7 @@
 		<define key="CONSTANT1_Q" value="41840" />
 		<define key="CONSTANT1_D" value="41840" />
 		<define key="CONSTANT2_QD" value="6343" />
-		<define key="IQMAX" value="2446" />
+		<define key="IQMAX" value="2752" />
 		<define key="SEGDIV" value="0" />
 		<define key="ANGC" value="{0,0,0,0,0,0,0,0}" />
 		<define key="OFST" value="{0,0,0,0,0,0,0,0}" />
@@ -212,7 +212,6 @@
 		<define key="SERIAL_COM_CHANNEL2" value="MC_PROTOCOL_REG_I_A" />
 		<define key="SERIAL_COM_MOTOR" value="0" />
 		<define key="LOW_SIDE_SIGNALS_ENABLING" value="LS_PWM_TIMER" />
-		<define key="SPEED_FEEDBACK_CHECK" value="TRUE" />
 		<define key="RTOS" value="NONE" />
 		<define key="HFI_IDH_DELAY" value="32400" />
 		<define key="HFI_STO_RPM_TH" value="OBS_MINIMUM_SPEED_RPM" />
@@ -297,10 +296,10 @@
 		<define key="PHASE_W_CURR_CHANNEL" value="ADC_Channel_3" />
 		<define key="PHASE_W_GPIO_PORT" value="GPIOA" />
 		<define key="PHASE_W_GPIO_PIN" value="GPIO_Pin_3" />
-		<define key="PHASE_CURRENTS_ADC" value="ADC1" />
+		<define key="PHASE_CURRENTS_ADC" value="ADC1_2" />
 		<define key="PHASE_CURRENTS_CHANNEL" value="ADC_Channel_9" />
-		<define key="PHASE_CURRENTS_GPIO_PORT" value="GPIOB" />
-		<define key="PHASE_CURRENTS_GPIO_PIN" value="GPIO_Pin_1" />
+		<define key="PHASE_CURRENTS_GPIO_PORT" value="GPIOA" />
+		<define key="PHASE_CURRENTS_GPIO_PIN" value="GPIO_Pin_0" />
 		<define key="VBUS_ADC" value="ADC1" />
 		<define key="VBUS_CHANNEL" value="ADC_Channel_9" />
 		<define key="VBUS_GPIO_PORT" value="GPIOB" />
@@ -321,7 +320,7 @@
 		<define key="START_STOP_POLARITY_EDGE" value="GPIO_PULLUP" />
 		<define key="START_STOP_GPIO_PORT" value="GPIOF" />
 		<define key="START_STOP_GPIO_PIN" value="GPIO_Pin_0" />
-		<define key="BKIN_MODE" value="EXT_MODE" />
+		<define key="BKIN_MODE" value="NONE" />
 		<define key="BKIN2_MODE" value="NONE" />
 		<define key="ADC_1_PERIPH" value="ADC1" />
 		<define key="ADC_2_PERIPH" value="ADC2" />
@@ -476,12 +475,12 @@
 		<define key="DAC_TIMER_CH1_GPIO_PIN" value="GPIO_Pin_0" />
 		<define key="DAC_TIMER_CH2_GPIO_PORT" value="GPIOA" />
 		<define key="DAC_TIMER_CH2_GPIO_PIN" value="GPIO_Pin_0" />
-		<define key="SW_OV_CURRENT_PROT_ENABLING" value="ENABLE" />
+		<define key="SW_OV_CURRENT_PROT_ENABLING" value="DISABLE" />
 		<define key="CTRBDID" value="10010" />
 		<define key="SHARED_SIGNAL_ENABLE" value="FALSE" />
 		<define key="DAC_EMULATED" value="FALSE" />
 		<define key="MCU" value="STSPIN32F0" />
-		<define key="BOARD" value="CUSTOM" />
+		<define key="BOARD" value="STEVAL-SPIN3201" />
 		<define key="MC_WORKBENCH_VERSION" value="5.4.8.21553" />
 	</defines>
 </STWorkBench>

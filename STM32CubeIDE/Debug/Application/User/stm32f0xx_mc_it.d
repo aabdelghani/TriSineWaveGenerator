@@ -59,9 +59,8 @@ Application/User/stm32f0xx_mc_it.o: \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/ntc_temperature_sensor.h \
  ../../Inc/regular_conversion_manager.h ../../Inc/mc_stm_types.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/pwm_curr_fdbk.h \
- ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/r_divider_bus_voltage_sensor.h \
- ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/virtual_bus_voltage_sensor.h \
+ ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/pqd_motor_power_measurement.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/motor_power_measurement.h \
  ../../Inc/user_interface.h ../../Inc/mc_interface.h \
@@ -90,10 +89,9 @@ Application/User/stm32f0xx_mc_it.o: \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/UILibrary/Inc/usart_frame_communication_protocol.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/UILibrary/Inc/frame_communication_protocol.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/F0xx/Inc/r3_f0xx_pwm_curr_fdbk.h \
+ ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/hall_speed_pos_fdbk.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/ramp_ext_mngr.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/circle_limitation.h \
- ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/sto_speed_pos_fdbk.h \
- ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/sto_pll_speed_pos_fdbk.h \
  ../../Inc/mc_tasks.h ../../Inc/ui_task.h \
  ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/UILibrary/Inc/ui_irq_handler.h \
  ../../Inc/parameters_conversion.h ../../Inc/mc_math.h \
@@ -162,9 +160,8 @@ Application/User/stm32f0xx_mc_it.o: \
 ../../Inc/regular_conversion_manager.h:
 ../../Inc/mc_stm_types.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/pwm_curr_fdbk.h:
-../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/r_divider_bus_voltage_sensor.h:
-../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/virtual_bus_voltage_sensor.h:
+../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/pqd_motor_power_measurement.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/motor_power_measurement.h:
 ../../Inc/user_interface.h:
@@ -194,10 +191,9 @@ Application/User/stm32f0xx_mc_it.o: \
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/UILibrary/Inc/usart_frame_communication_protocol.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/UILibrary/Inc/frame_communication_protocol.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/F0xx/Inc/r3_f0xx_pwm_curr_fdbk.h:
+../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/hall_speed_pos_fdbk.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/ramp_ext_mngr.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/circle_limitation.h:
-../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/sto_speed_pos_fdbk.h:
-../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/sto_pll_speed_pos_fdbk.h:
 ../../Inc/mc_tasks.h:
 ../../Inc/ui_task.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/UILibrary/Inc/ui_irq_handler.h:

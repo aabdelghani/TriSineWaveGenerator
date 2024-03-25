@@ -119,35 +119,16 @@ SpeednTorqCtrl_Handle_t SpeednTorqCtrlM1 =
   .TorqueRefDefault =				(int16_t)DEFAULT_TORQUE_COMPONENT,
   .IdrefDefault =					(int16_t)DEFAULT_FLUX_COMPONENT,
 };
-RevUpCtrl_Handle_t RevUpControlM1 =
-{
-  .hRUCFrequencyHz         = MEDIUM_FREQUENCY_TASK_RATE,
-  .hStartingMecAngle       = (int16_t)((int32_t)(STARTING_ANGLE_DEG)* 65536/360),
-  .bFirstAccelerationStage = (ENABLE_SL_ALGO_FROM_PHASE-1u),
-  .hMinStartUpValidSpeed   = OBS_MINIMUM_SPEED_UNIT,
-  .hMinStartUpFlySpeed     = (int16_t)(OBS_MINIMUM_SPEED_UNIT/2),
-  .OTFStartupEnabled       = false,
-  .OTFPhaseParams         = {(uint16_t)500,
-                                         0,
-                             (int16_t)PHASE5_FINAL_CURRENT,
-                             (void*)MC_NULL},
-  .ParamsData             = {{(uint16_t)PHASE1_DURATION,(int16_t)(PHASE1_FINAL_SPEED_UNIT),(int16_t)PHASE1_FINAL_CURRENT,&RevUpControlM1.ParamsData[1]},
-                             {(uint16_t)PHASE2_DURATION,(int16_t)(PHASE2_FINAL_SPEED_UNIT),(int16_t)PHASE2_FINAL_CURRENT,&RevUpControlM1.ParamsData[2]},
-                             {(uint16_t)PHASE3_DURATION,(int16_t)(PHASE3_FINAL_SPEED_UNIT),(int16_t)PHASE3_FINAL_CURRENT,&RevUpControlM1.ParamsData[3]},
-                             {(uint16_t)PHASE4_DURATION,(int16_t)(PHASE4_FINAL_SPEED_UNIT),(int16_t)PHASE4_FINAL_CURRENT,&RevUpControlM1.ParamsData[4]},
-                             {(uint16_t)PHASE5_DURATION,(int16_t)(PHASE5_FINAL_SPEED_UNIT),(int16_t)PHASE5_FINAL_CURRENT,(void*)MC_NULL},
-                            },
-};
-PWMC_R1_F0_Handle_t PWM_Handle_M1 =
+PWMC_R3_1_Handle_t PWM_Handle_M1 =
 {
   {
-    .pFctGetPhaseCurrents              = &R1F0XX_GetPhaseCurrents,
-    .pFctSwitchOffPwm                  = &R1F0XX_SwitchOffPWM,
-    .pFctSwitchOnPwm                   = &R1F0XX_SwitchOnPWM,
-    .pFctCurrReadingCalib              = &R1F0XX_CurrentReadingCalibration,
-    .pFctTurnOnLowSides                = &R1F0XX_TurnOnLowSides,
-    .pFctSetADCSampPointSectX          = &R1F0XX_CalcDutyCycles,
-    .pFctIsOverCurrentOccurred         = &R1F0XX_IsOverCurrentOccurred,
+    .pFctGetPhaseCurrents              = &R3_1_GetPhaseCurrents,
+    .pFctSwitchOffPwm                  = &R3_1_SwitchOffPWM,
+    .pFctSwitchOnPwm                   = &R3_1_SwitchOnPWM,
+    .pFctCurrReadingCalib              = &R3_1_CurrentReadingCalibration,
+    .pFctTurnOnLowSides                = &R3_1_TurnOnLowSides,
+    .pFctSetADCSampPointSectX          = &R3_1_SetADCSampPointSectX,
+    .pFctIsOverCurrentOccurred         = &R3_1_IsOverCurrentOccurred,
     .pFctOCPSetReferenceVoltage        = MC_NULL,
     .pFctRLDetectionModeEnable         = MC_NULL,
     .pFctRLDetectionModeDisable        = MC_NULL,
@@ -172,34 +153,24 @@ PWMC_R1_F0_Handle_t PWM_Handle_M1 =
     .Ton                 = TON,
     .Toff                = TOFF
   },
+  .PhaseAOffset = 0,
+  .PhaseBOffset = 0,
+  .PhaseCOffset = 0,
   .Half_PWMPeriod = PWM_PERIOD_CYCLES/2u,
-  .PhaseOffset = 0,
-  .DmaBuff = {0,0},
-  .CCDmaBuffCh4 = {0,0,0,0},
-  .CntSmp1 = 0,
-  .CntSmp2 = 0,
-  .sampCur1 = 0,
-  .sampCur2 = 0,
-  .CurrAOld = 0,
-  .CurrBOld = 0,
-  .CurrCOld = 0,
-  .Inverted_pwm = 0,
-  .Inverted_pwm_new = 0,
-  .DMATot = 0,
-  .DMACur = 0,
-  .Flags = 0,
-  .CurConv = {0,0},
-  .ADC_ExtTrigConv = 0,
   .OverCurrentFlag = false,
-  .pParams_str = &R1_F0XX_Params,
+  .OverVoltageFlag = false,
+  .BrakeActionLock = false,
+  .PolarizationCounter = 0,
+  .ADC1_DMA_converted = {0,0},
+  .pParams_str = &R3_1_Params
 };
 
 /**
-  * @brief  SpeedNPosition sensor parameters Motor 1 - Base Class
+  * @brief  SpeedNPosition sensor parameters Motor 1 - HALL
   */
-VirtualSpeedSensor_Handle_t VirtualSpeedSensorM1 =
-{
 
+HALL_Handle_t HALL_M1 =
+{
   ._Super = {
     .bElToMecRatio                     =	POLE_PAIR_NUM,
     .hMaxReliableMecSpeedUnit          =	(uint16_t)(1.15*MAX_APPLICATION_SPEED_UNIT),
@@ -208,74 +179,25 @@ VirtualSpeedSensor_Handle_t VirtualSpeedSensorM1 =
     .hMaxReliableMecAccelUnitP         =	65535,
     .hMeasurementFrequency             =	TF_REGULATION_RATE_SCALED,
     .DPPConvFactor                     =  DPP_CONV_FACTOR,
-    },
-  .hSpeedSamplingFreqHz =	MEDIUM_FREQUENCY_TASK_RATE,
-  .hTransitionSteps     =	(int16_t)(TF_REGULATION_RATE * TRANSITION_DURATION/ 1000.0),
-
-};
-
-/**
-  * @brief  SpeedNPosition sensor parameters Motor 1 - State Observer + PLL
-  */
-STO_PLL_Handle_t STO_PLL_M1 =
-{
-  ._Super = {
-	.bElToMecRatio                     =	POLE_PAIR_NUM,
-    .SpeedUnit                         = SPEED_UNIT,
-    .hMaxReliableMecSpeedUnit          =	(uint16_t)(1.15*MAX_APPLICATION_SPEED_UNIT),
-    .hMinReliableMecSpeedUnit          =	(uint16_t)(MIN_APPLICATION_SPEED_UNIT),
-    .bMaximumSpeedErrorsNumber         =	MEAS_ERRORS_BEFORE_FAULTS,
-    .hMaxReliableMecAccelUnitP         =	65535,
-    .hMeasurementFrequency             =	TF_REGULATION_RATE_SCALED,
-    .DPPConvFactor                     =  DPP_CONV_FACTOR,
   },
- .hC1                         =	C1,
- .hC2                         =	C2,
- .hC3                         =	C3,
- .hC4                         =	C4,
- .hC5                         =	C5,
- .hF1                         =	F1,
- .hF2                         =	F2,
- .PIRegulator = {
-     .hDefKpGain = PLL_KP_GAIN,
-     .hDefKiGain = PLL_KI_GAIN,
-	 .hDefKdGain = 0x0000U,
-     .hKpDivisor = PLL_KPDIV,
-     .hKiDivisor = PLL_KIDIV,
-	 .hKdDivisor = 0x0000U,
-     .wUpperIntegralLimit = INT32_MAX,
-     .wLowerIntegralLimit = -INT32_MAX,
-     .hUpperOutputLimit = INT16_MAX,
-     .hLowerOutputLimit = -INT16_MAX,
-     .hKpDivisorPOW2 = PLL_KPDIV_LOG,
-     .hKiDivisorPOW2 = PLL_KIDIV_LOG,
-     .hKdDivisorPOW2       = 0x0000U,
-   },
- .SpeedBufferSizeUnit                =	STO_FIFO_DEPTH_UNIT,
- .SpeedBufferSizeDpp                 =	STO_FIFO_DEPTH_DPP,
- .VariancePercentage                 =	PERCENTAGE_FACTOR,
- .SpeedValidationBand_H              =	SPEED_BAND_UPPER_LIMIT,
- .SpeedValidationBand_L              =	SPEED_BAND_LOWER_LIMIT,
- .MinStartUpValidSpeed               =	OBS_MINIMUM_SPEED_UNIT,
- .StartUpConsistThreshold            =	NB_CONSECUTIVE_TESTS,
- .Reliability_hysteresys             =	OBS_MEAS_ERRORS_BEFORE_FAULTS,
- .BemfConsistencyCheck               =	BEMF_CONSISTENCY_TOL,
- .BemfConsistencyGain                =	BEMF_CONSISTENCY_GAIN,
- .MaxAppPositiveMecSpeedUnit         =	(uint16_t)(MAX_APPLICATION_SPEED_UNIT*1.15),
- .F1LOG                              =	F1_LOG,
- .F2LOG                              =	F2_LOG,
- .SpeedBufferSizeDppLOG              =	STO_FIFO_DEPTH_DPP_LOG,
- .hForcedDirection                   =  0x0000U
-};
-STO_PLL_Handle_t *pSTO_PLL_M1 = &STO_PLL_M1;
+  .SensorPlacement     = HALL_SENSORS_PLACEMENT,
+  .PhaseShift          = (int16_t)(HALL_PHASE_SHIFT * 65536/360),
+  .SpeedSamplingFreqHz = MEDIUM_FREQUENCY_TASK_RATE,
+  .SpeedBufferSize     = HALL_AVERAGING_FIFO_DEPTH,
+ .TIMClockFreq       = HALL_TIM_CLK,
+ .TIMx                = TIM2,
 
-STO_Handle_t STO_M1 =
-{
-  ._Super                        = (SpeednPosFdbk_Handle_t*)&STO_PLL_M1,
-  .pFctForceConvergency1         = &STO_PLL_ForceConvergency1,
-  .pFctForceConvergency2         = &STO_PLL_ForceConvergency2,
-  .pFctStoOtfResetPLL            = &STO_OTF_ResetPLL,
-  .pFctSTO_SpeedReliabilityCheck = &STO_PLL_IsVarianceTight
+ .ICx_Filter          = M1_HALL_IC_FILTER,
+
+ .PWMFreqScaling      = PWM_FREQ_SCALING,
+ .HallMtpa            = HALL_MTPA,
+
+ .H1Port             =  M1_HALL_H1_GPIO_Port,
+ .H1Pin              =  M1_HALL_H1_Pin,
+ .H2Port             =  M1_HALL_H2_GPIO_Port,
+ .H2Pin              =  M1_HALL_H2_Pin,
+ .H3Port             =  M1_HALL_H3_GPIO_Port,
+ .H3Pin              =  M1_HALL_H3_Pin,
 };
 
 /**

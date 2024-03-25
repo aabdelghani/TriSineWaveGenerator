@@ -236,6 +236,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v5.4.8-Full/MotorControl/MCSDK/UILibrary/Src/frame_communication_protocol.c</locationURI>
 		</link>
 		<link>
+			<name>Middlewares/MotorControl/hall_speed_pos_fdbk.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Src/hall_speed_pos_fdbk.c</locationURI>
+		</link>
+		<link>
 			<name>Middlewares/MotorControl/motor_power_measurement.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Src/motor_power_measurement.c</locationURI>
@@ -271,9 +276,9 @@
 			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Src/pwm_curr_fdbk.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/MotorControl/r1_f0xx_pwm_curr_fdbk.c</name>
+			<name>Middlewares/MotorControl/r3_f0xx_pwm_curr_fdbk.c</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/F0xx/Src/r1_f0xx_pwm_curr_fdbk.c</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/F0xx/Src/r3_f0xx_pwm_curr_fdbk.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/MotorControl/ramp_ext_mngr.c</name>
@@ -299,11 +304,6 @@
 			<name>Middlewares/MotorControl/state_machine.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Src/state_machine.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/MotorControl/sto_pll_speed_pos_fdbk.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Src/sto_pll_speed_pos_fdbk.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/MotorControl/ui_irq_handler.c</name>

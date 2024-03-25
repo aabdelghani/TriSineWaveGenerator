@@ -58,26 +58,8 @@
 #define SERIALCOM_TIMEOUT_OCCURENCE_TICKS (SYS_TICK_FREQUENCY/SERIAL_COM_TIMEOUT_INVERSE)-1u
 #define SERIALCOM_ATR_TIME_TICKS (uint16_t)(((SYS_TICK_FREQUENCY * SERIAL_COM_ATR_TIME_MS) / 1000u) - 1u)
 
-/************************* COMMON OBSERVER PARAMETERS **************************/
-#define MAX_BEMF_VOLTAGE  (uint16_t)((MAX_APPLICATION_SPEED_RPM * 1.2 *\
-                           MOTOR_VOLTAGE_CONSTANT*SQRT_2)/(1000u*SQRT_3))
-#define MAX_VOLTAGE (int16_t)(500/2) /* Virtual sensor conversion factor */
-
-#define MAX_CURRENT (ADC_REFERENCE_VOLTAGE/(2*RSHUNT*AMPLIFICATION_GAIN))
-#define OBS_MINIMUM_SPEED_UNIT    (uint16_t) ((OBS_MINIMUM_SPEED_RPM*SPEED_UNIT)/_RPM)
-
 #define MAX_APPLICATION_SPEED_UNIT ((MAX_APPLICATION_SPEED_RPM*SPEED_UNIT)/_RPM)
 #define MIN_APPLICATION_SPEED_UNIT ((MIN_APPLICATION_SPEED_RPM*SPEED_UNIT)/_RPM)
-
-/************************* PLL PARAMETERS **************************/
-#define C1 (int32_t)((((int16_t)F1)*RS)/(LS*TF_REGULATION_RATE))
-#define C2 (int32_t) GAIN1
-#define C3 (int32_t)((((int16_t)F1)*MAX_BEMF_VOLTAGE)/(LS*MAX_CURRENT*TF_REGULATION_RATE))
-#define C4 (int32_t) GAIN2
-#define C5 (int32_t)((((int16_t)F1)*MAX_VOLTAGE)/(LS*MAX_CURRENT*TF_REGULATION_RATE))
-
-#define PERCENTAGE_FACTOR    (uint16_t)(VARIANCE_THRESHOLD*128u)
-#define HFI_MINIMUM_SPEED    (uint16_t) (HFI_MINIMUM_SPEED_RPM/6u)
 
 #define MAX_APPLICATION_SPEED_UNIT2 ((MAX_APPLICATION_SPEED_RPM2*SPEED_UNIT)/_RPM)
 #define MIN_APPLICATION_SPEED_UNIT2 ((MIN_APPLICATION_SPEED_RPM2*SPEED_UNIT)/_RPM)
@@ -127,18 +109,11 @@
 /* MOTOR 1 ADC Timing */
 /**********************/
 #define SAMPLING_TIME ((ADC_SAMPLING_CYCLES * ADV_TIM_CLK_MHz) / ADC_CLK_MHz) /* In ADV_TIMER CLK cycles*/
-#define TRISE ((TRISE_NS * ADV_TIM_CLK_MHz)/1000uL)
-#define TDEAD ((uint16_t)((DEADTIME_NS * ADV_TIM_CLK_MHz)/1000uL))
-#define TAFTER ((uint16_t)(TDEAD + TRISE))
-#define TBEFORE ((uint16_t)((ADC_TRIG_CONV_LATENCY_CYCLES + ADC_SAMPLING_CYCLES) * ADV_TIM_CLK_MHz) / ADC_CLK_MHz  + 1u)
-#define TMIN ((uint16_t)( TAFTER + TBEFORE ))
-#define HTMIN ((uint16_t)(TMIN >> 1))
-#define CHTMIN ((uint16_t)(TMIN/(REGULATION_EXECUTION_RATE*2)))
-#if (TRISE > SAMPLING_TIME)
-#define MAX_TRTS (2 * TRISE)
-#else
-#define MAX_TRTS (2 * SAMPLING_TIME)
-#endif
+#define HTMIN 1 /* Required for main.c compilation only, CCR4 is overwritten at runtime */
+#define TW_BEFORE ((uint16_t)((ADC_TRIG_CONV_LATENCY_CYCLES + ADC_SAMPLING_CYCLES) * ADV_TIM_CLK_MHz) / ADC_CLK_MHz  + 1u)
+#define TW_BEFORE_R3_1 ((uint16_t)((ADC_TRIG_CONV_LATENCY_CYCLES + ADC_SAMPLING_CYCLES*2 + ADC_SAR_CYCLES) * ADV_TIM_CLK_MHz) / ADC_CLK_MHz  + 1u)
+#define TW_AFTER ((uint16_t)(((DEADTIME_NS+MAX_TNTR_NS)*ADV_TIM_CLK_MHz)/1000ul))
+#define MAX_TWAIT ((uint16_t)((TW_AFTER - SAMPLING_TIME)/2))
 
 /* USER CODE BEGIN temperature */
 
@@ -164,7 +139,8 @@
 #define DIFFTERM_ENABLE
 
 /* Sensors setting */
-#define MAIN_SCFG UI_SCODE_STO_PLL
+
+#define MAIN_SCFG UI_SCODE_HALL
 
 #define AUX_SCFG 0x0
 
@@ -188,6 +164,11 @@
 
 #define DOUT_ACTIVE_HIGH   DOutputActiveHigh
 #define DOUT_ACTIVE_LOW    DOutputActiveLow
+
+/**********  AUXILIARY HALL TIMER MOTOR 1 *************/
+#define M1_HALL_TIM_PERIOD 65535
+#define M1_HALL_IC_FILTER  9
+#define SPD_TIM_M1_IRQHandler TIM2_IRQHandler
 
 /* MMI Table Motor 1 MAX_MODULATION_100_PER_CENT */
 #define START_INDEX 63

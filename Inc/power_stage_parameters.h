@@ -42,7 +42,7 @@
 #define NOMINAL_BUS_VOLTAGE_V         24
 /******** Current reading parameters section ******/
 /*** Topology ***/
-#define SINGLE_SHUNT
+#define THREE_SHUNT
 
 #define RSHUNT                        0.01000
 

@@ -77,7 +77,7 @@ void CURRENT_REGULATION_IRQHandler(void)
   /* USER CODE END CURRENT_REGULATION_IRQn 0 */
 
   /* Clear Flags */
-  DMA1->IFCR = (LL_DMA_ISR_GIF2|LL_DMA_ISR_TCIF2|LL_DMA_ISR_HTIF2);
+  DMA1->IFCR = (LL_DMA_ISR_GIF1|LL_DMA_ISR_TCIF1|LL_DMA_ISR_HTIF1);
   /* USER CODE BEGIN CURRENT_REGULATION_IRQn 1 */
 
   /* USER CODE END CURRENT_REGULATION_IRQn 1 */
@@ -102,7 +102,7 @@ void TIMx_UP_BRK_M1_IRQHandler(void)
   if(LL_TIM_IsActiveFlag_UPDATE(PWM_Handle_M1.pParams_str->TIMx) && LL_TIM_IsEnabledIT_UPDATE(PWM_Handle_M1.pParams_str->TIMx))
   {
     LL_TIM_ClearFlag_UPDATE(PWM_Handle_M1.pParams_str->TIMx);
-    R1F0XX_TIMx_UP_IRQHandler(&PWM_Handle_M1);
+    R3_1_TIMx_UP_IRQHandler( &PWM_Handle_M1 );
     /* USER CODE BEGIN PWM_Update */
 
     /* USER CODE END PWM_Update */
@@ -139,7 +139,6 @@ void DMAx_R1_M1_IRQHandler(void)
   if (LL_DMA_IsActiveFlag_TC4(DMA1))
   {
     LL_DMA_ClearFlag_TC4(DMA1);
-    R1F0XX_DMA_TC_IRQHandler(&PWM_Handle_M1);
     /* USER CODE BEGIN DMAx_R1_M1_TC4 */
 
     /* USER CODE END DMAx_R1_M1_TC4 */
@@ -147,6 +146,48 @@ void DMAx_R1_M1_IRQHandler(void)
   /* USER CODE BEGIN DMAx_R1_M1_IRQn 1 */
 
   /* USER CODE END DMAx_R1_M1_IRQn 1 */
+}
+
+/**
+  * @brief  This function handles TIMx global interrupt request for M1 Speed Sensor.
+  * @param  None
+  * @retval None
+  */
+void SPD_TIM_M1_IRQHandler(void)
+{
+  /* USER CODE BEGIN SPD_TIM_M1_IRQn 0 */
+
+  /* USER CODE END SPD_TIM_M1_IRQn 0 */
+
+  /* HALL Timer Update IT always enabled, no need to check enable UPDATE state */
+  if (LL_TIM_IsActiveFlag_UPDATE(HALL_M1.TIMx) != 0)
+  {
+    LL_TIM_ClearFlag_UPDATE(HALL_M1.TIMx);
+    HALL_TIMx_UP_IRQHandler(&HALL_M1);
+    /* USER CODE BEGIN HALL_Update */
+
+    /* USER CODE END HALL_Update   */
+  }
+  else
+  {
+    /* Nothing to do */
+  }
+  /* HALL Timer CC1 IT always enabled, no need to check enable CC1 state */
+  if (LL_TIM_IsActiveFlag_CC1 (HALL_M1.TIMx))
+  {
+    LL_TIM_ClearFlag_CC1(HALL_M1.TIMx);
+    HALL_TIMx_CC_IRQHandler(&HALL_M1);
+    /* USER CODE BEGIN HALL_CC1 */
+
+    /* USER CODE END HALL_CC1 */
+  }
+  else
+  {
+  /* Nothing to do */
+  }
+  /* USER CODE BEGIN SPD_TIM_M1_IRQn 1 */
+
+  /* USER CODE END SPD_TIM_M1_IRQn 1 */
 }
 
 /* This section is present only when serial communication is used */

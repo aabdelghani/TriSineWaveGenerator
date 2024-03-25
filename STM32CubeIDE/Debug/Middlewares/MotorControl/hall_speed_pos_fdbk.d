@@ -1,7 +1,8 @@
-Middlewares/MotorControl/r_divider_bus_voltage_sensor.o: \
- C:/Users/Ahmed/stMotorProjects/TriSineWaveGenerator/MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Src/r_divider_bus_voltage_sensor.c \
- ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/r_divider_bus_voltage_sensor.h \
- ../../Inc/regular_conversion_manager.h ../../Inc/mc_stm_types.h \
+Middlewares/MotorControl/hall_speed_pos_fdbk.o: \
+ C:/Users/Ahmed/stMotorProjects/TriSineWaveGenerator/MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Src/hall_speed_pos_fdbk.c \
+ ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h \
+ ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h \
+ ../../Inc/mc_stm_types.h \
  ../../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_ll_bus.h \
  ../../Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f0xx.h \
  ../../Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f031x6.h \
@@ -43,12 +44,11 @@ Middlewares/MotorControl/r_divider_bus_voltage_sensor.o: \
  ../../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_ll_dac.h \
  ../../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_ll_dma.h \
  ../../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_ll_comp.h \
- ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h \
- ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h \
- ../../Inc/mc_stm_types.h \
- ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/pwm_curr_fdbk.h
-../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/r_divider_bus_voltage_sensor.h:
-../../Inc/regular_conversion_manager.h:
+ ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/hall_speed_pos_fdbk.h \
+ ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h \
+ ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h
+../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h:
+../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h:
 ../../Inc/mc_stm_types.h:
 ../../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_ll_bus.h:
 ../../Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f0xx.h:
@@ -91,7 +91,6 @@ Middlewares/MotorControl/r_divider_bus_voltage_sensor.o: \
 ../../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_ll_dac.h:
 ../../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_ll_dma.h:
 ../../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_ll_comp.h:
-../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h:
+../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/hall_speed_pos_fdbk.h:
+../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h:
 ../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/mc_type.h:
-../../Inc/mc_stm_types.h:
-../../MCSDK_v5.4.8-Full/MotorControl/MCSDK/MCLib/Any/Inc/pwm_curr_fdbk.h:
