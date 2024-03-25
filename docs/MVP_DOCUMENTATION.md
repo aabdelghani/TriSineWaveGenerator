@@ -1,4 +1,31 @@
 # MVP Documentation
+## MVP 3: Integration of Hall Sensor for Speed Sensing and Simplification of Sensing Mechanisms
+
+### Release Date
+- March 25, 2024
+
+### Objectives
+- Enhance system's operational feedback by integrating a Hall sensor for accurate speed sensing.
+- Streamline the system’s sensing mechanisms by fully deactivating current sensing and disabling bus voltage sensing.
+- Focus on robust speed control and monitoring to improve overall system performance and reliability.
+
+### Achievements
+- **Hall Sensor Integration:** integrated a Hall sensor (Changed the Speed Sensor config)
+- **Current Sensing Deactivation:** Completely deactivated current sensing PA7 and PA6
+- **Bus Voltage Sensing Disabled:** Bus voltage sensing has been disabled
+
+### Technical Details and References
+- The decision to integrate a Hall sensor for speed sensing aligns with the objective to enhance the system's precision in monitoring and controlling the motor's speed. This approach provides a direct and reliable method for speed feedback, essential for optimizing system performance.
+- The full deactivation of current sensing and the elimination of bus voltage sensing are strategic moves to reduce system complexity, potential points of failure, and to streamline the focus towards critical control parameters, specifically speed control.
+- The following could be used for future reference [Motor stops when counter load has applied at MC Workbench](https://community.st.com/t5/stm32-mcus-motor-control/motor-stops-when-counter-load-has-applied-at-mc-workbench/m-p/119782#M1494)
+
+
+### Customer Feedback
+- *Pending*
+
+### Action Items
+- *Pending *
+
 ## MVP 2: Enhanced Current Sensing and Motor Inverter Board Configuration
 
 ### Release Date
@@ -24,6 +51,7 @@
 **1 - System Stops After a Few Seconds:** The issue here indicates that after a brief period of expected operation, the system ceases to function.
 
 __2 - Frequency Sweep Issue:__ The customer describes an unintended frequency sweep from DC to some upper frequency limit within the first few seconds of operation. This behavior is abnormal for a system designed to maintain a constant frequency or follow a predefined frequency pattern. 
+
 ### Action Items
 - *On hold based on customer feedback*
 
