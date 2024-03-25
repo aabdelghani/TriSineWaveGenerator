@@ -21,7 +21,9 @@
 - The adjustments to the GPIO and ADC settings are based on detailed specifications and recommendations found in the STSPIN32F0 series documentation and the application note on overcurrent protection. For more details, refer to the [STSPIN32F0F0AF0B Overcurrent Protection Application Note](https://github.com/aabdelghani/TriSineWaveGenerator/blob/main/docs/boardsDocs/STSPIN32F0F0AF0B%20overcurrent%20protection%20AN4999%20Application%20Note.pdf), specifically the table on page 3.
 
 ### Customer Feedback
-- *sent and still waiting for his feedback*
+1 - System Stops After a Few Seconds: The issue here indicates that after a brief period of expected operation, the system ceases to function. This behavior suggests a potential problem in the current sensing mechanism that might be triggering a protective shutdown or an error state within the motor inverter board configuration. Given the enhancements made in current sensing by integrating three shunt resistors, it's plausible that the system's sensitivity to current variations or overcurrent protection thresholds might need recalibration. The adjustments made in GPIO configuration for managing current sensing and system modes should also be revisited to ensure they align with the operational demands during the initial seconds post-reset.
+
+2 - Frequency Sweep Issue: The customer describes an unintended frequency sweep from DC to some upper frequency limit within the first few seconds of operation. This behavior is abnormal for a system designed to maintain a constant frequency or follow a predefined frequency pattern. The observed frequency sweep could be a symptom of software or firmware control logic that's not operating as intended, possibly due to incorrect configuration of the ADC for potentiometer reading or a misinterpretation of the potentiometer's input due to noise, ADC resolution issues, or software debouncing flaws.
   
 ### Action Items
 - *On hold based on customer feedback*
